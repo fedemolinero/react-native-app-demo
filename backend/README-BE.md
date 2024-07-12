@@ -14,3 +14,13 @@ identified by its SKU. For example, for the SKU 10041, the url should be: api/st
 -Separate the frontend and backend code into two completely separate project folders, each with its own package.json file.
 -Include a README.md file in each of the frontend and backend project folders, with clear and full instructions on how to install and run that part of the challenge.
 -Any instructions, error-messages, comments, etc. should be written only in English.
+
+# STARTING COMMANDS
+
+## TO RUN BACKEND ON PORT 5000
+
+npm start
+
+## TO RUN TESTS
+
+npm test
