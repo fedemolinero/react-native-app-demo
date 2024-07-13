@@ -9,7 +9,7 @@ import Animated, {
 
 import { ThemedView } from '@/components/ThemedView';
 
-const HEADER_HEIGHT = 250;
+const HEADER_HEIGHT = 5;
 
 type Props = PropsWithChildren<{
   headerBackgroundColor: { dark: string; light: string };
@@ -43,14 +43,10 @@ export default function ParallaxScrollView({
   return (
     <ThemedView style={styles.container}>
       <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
-        <Animated.View
-          style={[
-            styles.header,
-            { backgroundColor: headerBackgroundColor[colorScheme] },
-            headerAnimatedStyle,
-          ]}>
-        </Animated.View>
-        <ThemedView style={styles.content}>{children}</ThemedView>
+        <ThemedView style={[
+          { backgroundColor: headerBackgroundColor[colorScheme] },
+          headerAnimatedStyle,
+        ]}>{children}</ThemedView>
       </Animated.ScrollView>
     </ThemedView>
   );
@@ -60,10 +56,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
-    height: 100,
-    overflow: 'hidden',
-  },
+  // header: {
+  //   height: 215,
+  //   overflow: 'hidden',
+  // },
   content: {
     flex: 1,
     padding: 32,

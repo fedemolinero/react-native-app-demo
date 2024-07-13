@@ -23,9 +23,10 @@ const ProductDetailsScreen = ({ route }: any) => {
   };
 
   return (
+    console.log(productDetails),
     <View style={styles.container}>
       {productDetails ? (
-        <ThemedView>
+        <ThemedView style={styles.details}>
           <ThemedText>Name: {productDetails.productName}</ThemedText>
           <ThemedText>Stock: {productDetails.stock}</ThemedText>
           <ThemedText>variant Code: {productDetails.variantCode}</ThemedText>
@@ -44,6 +45,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  details: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
 });
 

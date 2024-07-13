@@ -46,13 +46,11 @@ const ProductListingScreen = ({ navigation }: any) => {
   const renderProductItem = ({ item }: { item: Product }) => (
 
     <TouchableOpacity style={styles.productItem} onPress={() => navigateToProductDetails(item)}>
-      <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={{ uri: `./assets${item.image}` }} // Construye la URL completa de la imagen
-        />
-      </View>
-      <ThemedText>{item.brand}</ThemedText>
+      <ThemedText style={styles.container}>{item.brand}</ThemedText>
+      <Image
+        style={styles.image}
+        source={{ uri: `./assets${item.image}` }} // Construye la URL completa de la imagen
+      />
       <ThemedText>{item.abv}</ThemedText>
     </TouchableOpacity >
   );
@@ -62,40 +60,44 @@ const ProductListingScreen = ({ navigation }: any) => {
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
     >
       <ThemedView style={styles.container}>
-        <ThemedText style={styles.container} type="subtitle">Hi Mr. Michael,</ThemedText>
-        <ThemedText style={styles.container} type="title">Welcome back !</ThemedText>
-        <ThemedText style={styles.container} type="default">Our Products</ThemedText>
+        <ThemedText type="subtitle">Hi Mr. Michael,</ThemedText>
+        <ThemedText type="title">Welcome back !</ThemedText>
+        <ThemedText type="default">Our Products</ThemedText>
 
         <FlatList
           data={products}
           renderItem={renderProductItem}
           keyExtractor={(item) => item.id.toString()}
+          numColumns={2}
+          contentContainerStyle={styles.flatlistContent}
         />
       </ThemedView>
     </ParallaxScrollView>
-
-
   );
 };
 
 const styles = StyleSheet.create({
-  productItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
   container: {
-    padding: 10
+    flex: 1,
+    padding: 10,
+    color: '#1D3D47',
+    backgroundColor: '#ffffff',
+
   },
-  errorText: {
-    fontSize: 16,
-    color: 'red',
-    textAlign: 'center',
+  productItem: {
+    flex: 1,
+    margin: 5, // Espacio entre elementos
+    alignItems: 'center', // Alinea elementos al centro horizontalmente
+    backgroundColor: '#ffffff',
+    width: '50%', // Cada elemento ocupa el 50% del ancho de su contenedor
   },
   image: {
     width: 200,
     height: 200,
     resizeMode: 'contain',
+  },
+  flatlistContent: {
+    alignItems: 'center', // Alinea los elementos al centro horizontalmente
   },
 });
 
