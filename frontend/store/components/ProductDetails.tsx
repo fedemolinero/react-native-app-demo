@@ -1,40 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
-import axios from 'axios';
-import { ProductDetails } from '@/types';
-import { ThemedText } from './ThemedText';
-import { ThemedView } from './ThemedView';
+// ProductDetailsScreen.tsx
+
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Image, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductDetails } from '../redux/reducers/productsReducer'; // Importa la acción
+import { RootState } from '../redux/store'; // Importa RootState para typing
 
 const ProductDetailsScreen = ({ route }: any) => {
   const { product } = route.params;
-  const [productDetails, setProductDetails] = useState<ProductDetails | null>(null); // Initialize with null or initial state
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state: RootState) => state.products.productDetails);
+  const status = useSelector((state: RootState) => state.products.status);
+  const error = useSelector((state: RootState) => state.products.error);
 
   useEffect(() => {
-    fetchProductDetails(product.skus[0].code);
-  }, []);
-
-  const fetchProductDetails = async (sku: string) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/stock-price/${sku}`);
-      setProductDetails(response.data); // Assuming response.data matches ProductDetails interface
-    } catch (error) {
-      Alert.alert('Error', 'Failed to fetch product details');
+    if (product && product.skus && product.skus.length > 0) {
+      dispatch<any>(fetchProductDetails(product.skus[0].code));
     }
-  };
+  }, [dispatch, product]);
 
   return (
-    console.log(productDetails),
     <View style={styles.container}>
-      {productDetails ? (
-        <ThemedView style={styles.details}>
-          <ThemedText>Name: {productDetails.productName}</ThemedText>
-          <ThemedText>Price: ${productDetails.price / 100}</ThemedText> 
-          <ThemedText>Stock: {productDetails.stock}</ThemedText>
-          <ThemedText>variant Code: {productDetails.variantCode}</ThemedText>
-          <ThemedText>variant Name: {productDetails.variantName}</ThemedText>
-        </ThemedView>
-      ) : (
-        <Text>Loading...</Text>
+      {status === 'loading' && <Text>Loading...</Text>}
+      {status === 'failed' && <Text>Error: {error}</Text>}
+      {status === 'succeeded' && productDetails && (
+        <View style={styles.details}>
+          <Text>Name: {productDetails.productName}</Text>
+          <Text>Price: ${productDetails.price / 100}</Text>
+          <Text>Stock: {productDetails.stock}</Text>
+          <Text>Variant Code: {productDetails.variantCode}</Text>
+          <Text>Variant Name: {productDetails.variantName}</Text>
+          <Image style={styles.image} source={{ uri: productDetails.image }} />
+        </View>
       )}
     </View>
   );
@@ -47,10 +44,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   details: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
 });
 
