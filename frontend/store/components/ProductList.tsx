@@ -49,7 +49,7 @@ const ProductListingScreen = ({ navigation }: any) => {
       <ThemedText style={styles.container}>{item.brand}</ThemedText>
       <Image
         style={styles.image}
-        source={{ uri: `./assets${item.image}` }} // Construye la URL completa de la imagen
+        source={{ uri: `./assets${item.image}` }}
       />
       <ThemedText>{item.abv}</ThemedText>
     </TouchableOpacity >
@@ -82,14 +82,13 @@ const styles = StyleSheet.create({
     padding: 10,
     color: '#1D3D47',
     backgroundColor: '#ffffff',
-
   },
   productItem: {
     flex: 1,
-    margin: 5, // Espacio entre elementos
-    alignItems: 'center', // Alinea elementos al centro horizontalmente
+    margin: 5,
+    alignItems: 'center',
     backgroundColor: '#ffffff',
-    width: '50%', // Cada elemento ocupa el 50% del ancho de su contenedor
+    width: '50%',
   },
   image: {
     width: 200,
@@ -97,7 +96,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   flatlistContent: {
-    alignItems: 'center', // Alinea los elementos al centro horizontalmente
+    alignItems: 'center',
   },
 });
 

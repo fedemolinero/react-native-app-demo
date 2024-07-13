@@ -28,10 +28,10 @@ const ProductDetailsScreen = ({ route }: any) => {
       {productDetails ? (
         <ThemedView style={styles.details}>
           <ThemedText>Name: {productDetails.productName}</ThemedText>
+          <ThemedText>Price: ${productDetails.price / 100}</ThemedText> 
           <ThemedText>Stock: {productDetails.stock}</ThemedText>
           <ThemedText>variant Code: {productDetails.variantCode}</ThemedText>
           <ThemedText>variant Name: {productDetails.variantName}</ThemedText>
-          <ThemedText>Price: ${productDetails.price / 100}</ThemedText>
         </ThemedView>
       ) : (
         <Text>Loading...</Text>
