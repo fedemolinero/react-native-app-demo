@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Text, StyleSheet, Alert, ScrollView, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-import { Text, StyleSheet, Alert, ScrollView, View, TouchableOpacity } from 'react-native';
 import { ProductDetails } from '@/types';
 import { ThemedText } from '../components/ThemedText';
 import { Image } from 'react-native';
@@ -10,9 +10,10 @@ import ToCartIcon from '@/components/toCartIcon';
 const ProductDetailsScreen = ({ route, navigation }: any) => {
   const { product } = route.params;
   const [productDetails, setProductDetails] = useState<ProductDetails | null>(null);
+  const [loading, setLoading] = useState(true); // Initial loading state
+  const [error, setError] = useState(false); // Initial error state
 
   useEffect(() => {
-    // Set header options
     navigation.setOptions({
       headerRight: () => <DotsIcon />,
       headerTitleAlign: 'center',
@@ -23,7 +24,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
       headerTitleStyle: {
         fontFamily: 'DMSans-Regular',
         fontSize: 18,
-        fontWeight: 700
+        fontWeight: '700', 
       },
       title: 'Detail',
     });
@@ -44,8 +45,11 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/stock-price/${sku}`);
       setProductDetails(response.data); // Assuming response.data matches ProductDetails interface
+      setLoading(false); // Set loading state to false on successful fetch
     } catch (error) {
-      Alert.alert('Error', 'Failed to fetch product details');
+      setLoading(false); // Set loading state to false on error
+      setError(true); // Set error state to true
+      console.error('Error fetching product details:', error);
     }
   };
 
@@ -53,6 +57,28 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     console.log('Add to Cart pressed');
   };
 
+  // Render loading indicator while fetching data
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#FF9F24" />
+      </View>
+    );
+  }
+
+  // Render error message if there was an error fetching data
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text>Error: Failed to fetch product details.</Text>
+        <TouchableOpacity style={styles.retryButton} onPress={() => fetchProductDetails(product.sku[0].code)}>
+          <Text>Retry</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  // Render product details once data is loaded
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -76,10 +102,10 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
                 <ThemedText type='toptitle'> | Stock: {productDetails.stock}</ThemedText>
               </View>
 
-              <ThemedText style={styles.productDetailsDescription} type='titleAlt'>Description </ThemedText>
-              <ThemedText style={styles.productDetailsDescriptionText} type='toptitle'> {productDetails.information}</ThemedText>
+              <ThemedText style={styles.productDetailsDescription} type='titleAlt'>Description</ThemedText>
+              <ThemedText style={styles.productDetailsDescriptionText} type='toptitle'>{productDetails.information}</ThemedText>
 
-              <ThemedText style={styles.size} type='titleAlt'>Size </ThemedText>
+              <ThemedText style={styles.size} type='titleAlt'>Size</ThemedText>
 
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.buttonRounded}>
@@ -97,7 +123,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
 
           </View>
         ) : (
-          <Text>Loading...</Text>
+          <Text>No product details available.</Text>
         )}
       </ScrollView>
 
@@ -117,9 +143,26 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fafafa',
     flex: 1,
+    backgroundColor: '#fafafa',
     paddingBottom: 60, // Ensure space for bottom bar
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  retryButton: {
+    marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#FF9F24',
+    borderRadius: 5,
   },
   imageContainer: {
     padding: 20,
@@ -207,8 +250,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     flex: 1,
     alignItems: 'center',
-    marginRight: 20
-  }
+    marginRight: 20,
+  },
 });
 
 export default ProductDetailsScreen;
