@@ -41,16 +41,21 @@ const ProductListingScreen = ({ navigation }: any) => {
   };
 
   const renderProductItem = ({ item }: { item: Product }) => (
-    <TouchableOpacity style={styles.containerItem} onPress={() => navigateToProductDetails(item)}>
-      <ThemedText type='itemTitle'>{item.brand}</ThemedText>
-      <Image
-        style={styles.image}
-        source={{ uri: `./assets${item.image}` }}
-      />
+    <TouchableOpacity style={styles.itemContainer} onPress={() => navigateToProductDetails(item)}>
+
+      <View style={styles.itemTitle}>
+        <ThemedText style={styles.titlePaddedcontent} type='itemTitle'>{item.brand}</ThemedText>
+        <Image
+          style={styles.image}
+          source={{ uri: `./assets${item.image}` }}
+        />
+      </View>
+
       <View style={styles.productItem}>
-        <ThemedText type="itemTitle">${item.price / 100}</ThemedText>
+        <ThemedText style={styles.paddedcontent} type="itemTitle">${item.price / 100}</ThemedText>
         <AddToCartIcon />
       </View>
+
     </TouchableOpacity >
   );
 
@@ -77,35 +82,48 @@ const ProductListingScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
 
   container: {
-    flex: 1,
-    padding: 10,
-    color: '#1D3D47',
     backgroundColor: '#fafafa',
+    paddingLeft:20,
+    paddingTop:20
   },
-  containerItem: {
-    flex: 1,
-    alignItems: 'center',
+  itemContainer: {
     backgroundColor: '#ffffff',
     borderTopLeftRadius: 12,
     borderTopRightRadius: 32,
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,
-    padding: 20,
     margin: 10
+  },
+  itemTitle: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingLeft: 10,
+    paddingRight: 22,
+    paddingTop: 10
   },
   productItem: {
     flexDirection: 'row',
     justifyContent: 'space-between', // Esto alinea los elementos uno a la izquierda y otro a la derecha
-    alignItems: 'center', // Esto centra verticalmente los elementos
+    alignItems: 'center',
+    
+  },
+  titlePaddedcontent: {
+    paddingBottom: 10,
+    textAlign: 'center'
+  },
+  paddedcontent: {
+    paddingLeft:10,
+    textAlign: 'center'
   },
   image: {
-    flex: 1,
     width: 122,
     height: 122,
     resizeMode: 'contain',
   },
   flatlistContent: {
     alignItems: 'center',
+    flexDirection: 'column'
   },
 });
 
