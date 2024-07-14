@@ -1,6 +1,6 @@
 export interface Product {
-  price: string;
   id: number;
+  skus: Sku[];
   image: string;
   brand: string;
   style: string;
@@ -8,7 +8,8 @@ export interface Product {
   abv: string;
   origin: string;
   information: string;
-  skus: Sku[];
+  price: string;
+  stock: string;
 }
 
 export interface Sku {
@@ -17,7 +18,10 @@ export interface Sku {
 }
 
 export interface ProductDetails {
-  productId: number;
+  // productId: number;
+  brand: string,
+  image: string,
+  information: string,
   productName: string;
   stock: number;
   variantCode: string;
