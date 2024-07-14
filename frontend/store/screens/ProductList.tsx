@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Product } from '@/types';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 import LogoTitle from '@/components/LogoTitle';
 import MenuIcon from '@/components/MenuIcon';
 import AddToCartIcon from '@/components/addToCartIcon';
@@ -55,15 +54,12 @@ const ProductListingScreen = ({ navigation }: any) => {
         <ThemedText style={styles.paddedcontent} type="itemTitle">${item.price / 100}</ThemedText>
         <AddToCartIcon />
       </View>
-
     </TouchableOpacity >
   );
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#fafafa', dark: '#1D3D47' }}
-    >
-      <ThemedView style={styles.container}>
+    <ThemedView>
+      <View style={styles.container}>
         <ThemedText type="toptitle">Hi Mr. Michael,</ThemedText>
         <ThemedText type="title">Welcome back !</ThemedText>
         <ThemedText type="default">Our Products</ThemedText>
@@ -74,8 +70,8 @@ const ProductListingScreen = ({ navigation }: any) => {
           numColumns={2}
           contentContainerStyle={styles.flatlistContent}
         />
-      </ThemedView>
-    </ParallaxScrollView>
+      </View>
+    </ThemedView>
   );
 };
 
@@ -83,8 +79,8 @@ const styles = StyleSheet.create({
 
   container: {
     backgroundColor: '#fafafa',
-    paddingLeft:20,
-    paddingTop:20
+    paddingLeft: 20,
+    paddingTop: 20
   },
   itemContainer: {
     backgroundColor: '#ffffff',
@@ -106,14 +102,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between', // Esto alinea los elementos uno a la izquierda y otro a la derecha
     alignItems: 'center',
-    
+
   },
   titlePaddedcontent: {
     paddingBottom: 10,
     textAlign: 'center'
   },
   paddedcontent: {
-    paddingLeft:10,
+    paddingLeft: 10,
     textAlign: 'center'
   },
   image: {
