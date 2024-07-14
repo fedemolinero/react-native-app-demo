@@ -6,41 +6,45 @@ const router = express.Router();
 
 // Route to get all products
 router.get('/products', (req, res) => {
-  res.json(products);
+    const simplifiedProducts = products.map(product => ({
+        brand: product.brand,
+        image: product.image,
+        price: getProductPrice(product.skus)
+    }));
+    res.json(simplifiedProducts);
 });
 
-// Route to get all details on stock and price for SKU
-router.get('/stock-price/:sku', (req, res) => {
-  const { sku } = req.params;
-
-  // Find details of stock and price by sku
-  if (stockPrice[sku]) {
-
-    // Find the product corresponding to SKU
-    const product = products.find((p) => p.skus.some((s) => s.code === sku));
-
-    if (product) {
-      const variant = product.skus.find((s) => s.code === sku);
-      const { stock, price } = stockPrice[sku];
-
-      // response object
-      const response = {
-        productId: product.id,
-        productName: product.brand,
-        variantCode: variant.code,
-        variantName: variant.name,
-        stock,
-        price,
-      };
-
-      res.json(response);
-    } else {
-      res.status(404).json({ message: 'Product not found' });
+// Aux fnc to get price of first SKU
+function getProductPrice(skus) {
+    if (skus.length > 0) {
+        const firstSkuCode = skus[0].code;
+        return stockPrice[firstSkuCode].price;
     }
-  } else {
-    res.status(404).json({ message: 'Product variant not found' });
-  }
+    return null;
+}
+
+// Endpoint to get price and stock of a product by SKU
+router.get('/stock-price/:sku', (req, res) => {
+    const sku = req.params.sku;
+    const product = getProductBySku(sku);
+    if (product) {
+        const stockInfo = stockPrice[sku];
+        res.json({
+            brand: product.brand,
+            image: product.image,
+            price: stockInfo.price,
+            information: product.information,
+            stock: stockInfo.stock
+        });
+    } else {
+        res.status(404).json({ error: 'Product not found' });
+    }
 });
+
+// aux function to get product by SKU
+function getProductBySku(sku) {
+    return products.find(product => product.skus.some(s => s.code === sku));
+}
 
 // Exporting router with routes configured
 export { router };
