@@ -30,7 +30,7 @@ const ProductDetailsScreen = ({ route }: any) => {
           <Text>Stock: {productDetails.stock}</Text>
           <Text>Variant Code: {productDetails.variantCode}</Text>
           <Text>Variant Name: {productDetails.variantName}</Text>
-          <Image style={styles.image} source={{ uri: productDetails.image }} />
+          {/* <Image style={styles.image} source={{ uri: productDetails.image }} /> */}
         </View>
       )}
     </View>

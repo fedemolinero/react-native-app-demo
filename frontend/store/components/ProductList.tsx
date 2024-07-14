@@ -5,6 +5,7 @@ import { FlatList, TouchableOpacity, Alert, StyleSheet, Image, Text } from 'reac
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../redux/reducers/productsReducer'; // Importa la acción
 import { RootState } from '../redux/store'; // Importa RootState para typing
+import { Product } from '@/types';
 
 const ProductListingScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const ProductListingScreen = ({ navigation }: any) => {
     navigation.navigate('ProductDetails', { product });
   };
 
-  const renderProductItem = ({ item }: { item: any }) => (
+  const renderProductItem = ({ item }: { item: Product }) => (
     <TouchableOpacity style={styles.productItem} onPress={() => navigateToProductDetails(item)}>
       <Image style={styles.image} source={{ uri: item.image }} />
       <Text>{item.brand}</Text>

@@ -1,14 +1,12 @@
-// productsReducer.ts
-
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Product, ProductDetails } from '@/types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { RootState, AppThunk } from '../store'; // Importa RootState y AppThunk desde store.ts
 
 interface ProductsState {
-  products: any[]; // Ajusta el tipo de productos según tu estructura
-  productDetails: any | null; // Ajusta el tipo de detalles de productos según tu estructura
+  products: Product[]; // Ajusta el tipo de productos según tu estructura
+  productDetails: ProductDetails | null; // Ajusta el tipo de detalles de productos según tu estructura
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null; // Ajusta el tipo de error a string | null
+  error: string | null; 
 }
 
 const initialState: ProductsState = {
@@ -44,7 +42,7 @@ const productsSlice = createSlice({
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.status = 'loading';
-        state.error = null; // Resetea el error a null al iniciar la carga
+        state.error = null; 
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
