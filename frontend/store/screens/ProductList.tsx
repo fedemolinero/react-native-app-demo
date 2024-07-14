@@ -1,14 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity, Alert, StyleSheet, Button } from 'react-native';
-import { Product } from '@/types';
+import { FlatList, TouchableOpacity, Alert, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
-import { ThemedText } from './ThemedText';
-import { ThemedView } from './ThemedView';
-import ParallaxScrollView from './ParallaxScrollView';
-import LogoTitle from './LogoTitle';
-import MenuIcon from './MenuIcon';
-import { Image, View } from 'react-native';
+import { Product } from '@/types';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import LogoTitle from '@/components/LogoTitle';
+import MenuIcon from '@/components/MenuIcon';
 
 
 const ProductListingScreen = ({ navigation }: any) => {
@@ -18,8 +17,6 @@ const ProductListingScreen = ({ navigation }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    // Use `setOptions` to update the button that we previously specified
-    // Now the button includes an `onPress` handler to update the count
     navigation.setOptions({
       title: 'Wellcome',
       // headerLeft: () => (),

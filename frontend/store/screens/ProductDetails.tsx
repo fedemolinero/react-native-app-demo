@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';
+import { Text, StyleSheet, Alert } from 'react-native';
 import { ProductDetails } from '@/types';
-import { ThemedText } from './ThemedText';
-import { ThemedView } from './ThemedView';
+import { ThemedText } from '../components/ThemedText';
+import { ThemedView } from '../components/ThemedView';
 import { Image } from 'react-native';
+import MenuIcon from '@/components/MenuIcon';
 
-
-const ProductDetailsScreen = ({ route }: any) => {
+const ProductDetailsScreen = ({ route, navigation }: any,) => {
   const { product } = route.params;
   const [productDetails, setProductDetails] = useState<ProductDetails | null>(null); // Initialize with null or initial state
 
   useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <MenuIcon />,
+      headerTitleAlign: 'center',
+      title: 'Detail',
+    });
     fetchProductDetails(product.sku[0].code);
-  }, []);
+  }, [navigation]);
+
 
   const fetchProductDetails = async (sku: string) => {
     try {
