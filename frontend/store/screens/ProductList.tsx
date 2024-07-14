@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     color: '#1D3D47',
-    backgroundColor: '#000000',
+    backgroundColor: '#fafafa',
   },
   containerItem: {
     flex: 1,
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 32,
     borderBottomRightRadius: 12,
     borderBottomLeftRadius: 12,
-    padding:20,
-    margin:10
+    padding: 20,
+    margin: 10
   },
   productItem: {
     flexDirection: 'row',

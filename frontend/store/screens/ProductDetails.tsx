@@ -39,8 +39,8 @@ const ProductDetailsScreen = ({ route, navigation }: any,) => {
             style={styles.image}
             source={{ uri: `./assets${productDetails.image}` }}
           />
-          <ThemedText type="title">{productDetails.brand}</ThemedText>
-          <ThemedText type="subtitle"> ${productDetails.price / 100}</ThemedText>
+          <ThemedText style={styles.customColor} type="title">{productDetails.brand}</ThemedText>
+          <ThemedText style={styles.colored} type="title"> ${productDetails.price / 100}</ThemedText>
           <ThemedText>Origin: {productDetails.origin}</ThemedText>
           <ThemedText>Stock: {productDetails.stock}</ThemedText>
           <ThemedText>Description: </ThemedText>
@@ -73,6 +73,14 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: 'contain',
   },
+  colored: {
+    color: '#FF9F24'
+  },
+  customColor: {
+    color: '#0F0D23',
+  }
+
+
 });
 
 export default ProductDetailsScreen;
