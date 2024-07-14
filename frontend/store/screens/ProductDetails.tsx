@@ -6,6 +6,7 @@ import { ThemedText } from '../components/ThemedText';
 import { ThemedView } from '../components/ThemedView';
 import { Image } from 'react-native';
 import MenuIcon from '@/components/MenuIcon';
+import DotsIcon from '@/components/dotsIcon';
 
 const ProductDetailsScreen = ({ route, navigation }: any,) => {
   const { product } = route.params;
@@ -13,7 +14,7 @@ const ProductDetailsScreen = ({ route, navigation }: any,) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <MenuIcon />,
+      headerRight: () => <DotsIcon />,
       headerTitleAlign: 'center',
       title: 'Detail',
     });

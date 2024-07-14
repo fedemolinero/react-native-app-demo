@@ -22,7 +22,7 @@ const fetchFonts = async () => {
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'title' | 'itemTitle' | 'subtitle' | 'toptitle';
 };
 
 export function ThemedText({
@@ -57,9 +57,9 @@ export function ThemedText({
         { color },
         type === 'default' ? styles.default : undefined,
         type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
+        type === 'itemTitle' ? styles.itemTitle : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'link' ? styles.link : undefined,
+        type === 'toptitle' ? styles.toptitle : undefined,
         style,
       ]}
       {...rest}
@@ -74,30 +74,37 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: '#000000',
   },
-  defaultSemiBold: {
-    fontFamily: 'DMSans-Regular',
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: '600',
-    color: '#000000',
-  },
   title: {
     fontFamily: 'DMSans-Regular',
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
-    color: '#000000',
+    fontStyle: 'normal',
+    color: '#323232',
+    fontSize: 24,
+    fontWeight: 700,
+    lineHeight: 31,
   },
   subtitle: {
     fontFamily: 'DMSans-Regular',
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#000000',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    fontSize: 18,
+    color: '#323232',
+    lineHeight: 23,
   },
-  link: {
+  toptitle: {
     fontFamily: 'DMSans-Regular',
-    lineHeight: 30,
+    fontStyle: 'normal',
     fontSize: 16,
-    color: '#0a7ea4',
+    fontWeight: 400,
+    lineHeight: 21,
+    color: '#646464',
+    opacity: 0.6,
   },
+  itemTitle: {
+    fontFamily: 'DMSans-Regular',
+    fontStyle: 'normal',
+    fontSize: 16,
+    lineHeight: 16,
+    fontWeight: '500',
+    color: '#323232'
+  }
 });
