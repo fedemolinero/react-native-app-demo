@@ -4,13 +4,14 @@ import axios from 'axios';
 import { ProductDetails } from '@/types';
 import { ThemedText } from './ThemedText';
 import { ThemedView } from './ThemedView';
+import { Image } from 'react-native';
+
 
 const ProductDetailsScreen = ({ route }: any) => {
   const { product } = route.params;
   const [productDetails, setProductDetails] = useState<ProductDetails | null>(null); // Initialize with null or initial state
 
   useEffect(() => {
-    console.log(product.sku[0])
     fetchProductDetails(product.sku[0].code);
   }, []);
 
@@ -24,19 +25,24 @@ const ProductDetailsScreen = ({ route }: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       {productDetails ? (
         <ThemedView style={styles.details}>
-          <ThemedText>Name: {productDetails.productName}</ThemedText>
-          <ThemedText>Price: ${productDetails.price / 100}</ThemedText>
+          <Image
+            style={styles.image}
+            source={{ uri: `./assets${productDetails.image}` }}
+          />
+          <ThemedText type="title">{productDetails.brand}</ThemedText>
+          <ThemedText type="subtitle"> ${productDetails.price / 100}</ThemedText>
+          <ThemedText>Origin: {productDetails.origin}</ThemedText>
           <ThemedText>Stock: {productDetails.stock}</ThemedText>
-          <ThemedText>variant Code: {productDetails.variantCode}</ThemedText>
-          <ThemedText>variant Name: {productDetails.variantName}</ThemedText>
+          <ThemedText>Description: </ThemedText>
+          <ThemedText type='default'> {productDetails.information}</ThemedText>
         </ThemedView>
       ) : (
         <Text>Loading...</Text>
       )}
-    </View>
+    </ThemedView>
   );
 };
 
@@ -45,12 +51,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
+    color: '#1D3D47',
+    backgroundColor: '#ffffff',
   },
   details: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
   },
 });
 

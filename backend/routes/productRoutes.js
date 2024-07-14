@@ -50,7 +50,9 @@ router.get('/stock-price/:sku', (req, res) => {
             image: product.image,
             price: stockInfo.price,
             information: product.information,
-            stock: stockInfo.stock
+            stock: stockInfo.stock,
+            origin: product.origin,
+            size: product.skus.name
         });
     } else {
         res.status(404).json({ error: 'Product not found' });

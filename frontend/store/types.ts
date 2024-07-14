@@ -18,13 +18,11 @@ export interface Sku {
 }
 
 export interface ProductDetails {
-  // productId: number;
-  brand: string,
   image: string,
-  information: string,
-  productName: string;
-  stock: number;
-  variantCode: string;
-  variantName: string;
+  brand: string,
   price: number;
+  origin: string;
+  stock: number;
+  information: string,
+  size: string[]
 }
