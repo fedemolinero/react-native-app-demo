@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
   titleAlt: {
     fontFamily: 'DMSans-Regular',
     fontStyle: 'normal',
-    color: '#0F0D23',
-    fontSize: 24,
+    color: '#323232',
+    fontSize: 16,
     fontWeight: 700,
-    lineHeight: 31,
+    lineHeight: 21,
   },
   subtitle: {
     fontFamily: 'DMSans-Regular',

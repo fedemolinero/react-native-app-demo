@@ -41,10 +41,11 @@ const ProductDetailsScreen = ({ route, navigation }: any,) => {
           />
           <ThemedText style={styles.customColor} type="title">{productDetails.brand}</ThemedText>
           <ThemedText style={styles.colored} type="title"> ${productDetails.price / 100}</ThemedText>
-          <ThemedText>Origin: {productDetails.origin}</ThemedText>
-          <ThemedText>Stock: {productDetails.stock}</ThemedText>
-          <ThemedText>Description: </ThemedText>
-          <ThemedText type='default'> {productDetails.information}</ThemedText>
+          <ThemedText type='toptitle'>Origin: {productDetails.origin}</ThemedText>
+          <ThemedText type='toptitle'>Stock: {productDetails.stock}</ThemedText>
+          <ThemedText type='titleAlt'>Description: </ThemedText>
+          <ThemedText type='toptitle'> {productDetails.information}</ThemedText>
+          <ThemedText type='titleAlt'>Size: </ThemedText>
         </ThemedView>
       ) : (
         <Text>Loading...</Text>
