@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/products', (req, res) => {
     const simplifiedProducts = products.map(product => ({
         id: product.id,
+        sku: product.skus,
         brand: product.brand,
         image: product.image,
         price: getProductPrice(product.skus),
