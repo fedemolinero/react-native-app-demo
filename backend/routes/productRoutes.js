@@ -7,9 +7,16 @@ const router = express.Router();
 // Route to get all products
 router.get('/products', (req, res) => {
     const simplifiedProducts = products.map(product => ({
+        id: product.id,
         brand: product.brand,
         image: product.image,
-        price: getProductPrice(product.skus)
+        price: getProductPrice(product.skus),
+        stock: getProductStock(product.skus),
+        style: product.style,
+        substyle: product.substyle,
+        abv: product.abv,
+        origin: product.origin,
+        information: product.information
     }));
     res.json(simplifiedProducts);
 });
@@ -19,6 +26,14 @@ function getProductPrice(skus) {
     if (skus.length > 0) {
         const firstSkuCode = skus[0].code;
         return stockPrice[firstSkuCode].price;
+    }
+    return null;
+}
+// Aux fnc to get price of first SKU
+function getProductStock(skus) {
+    if (skus.length > 0) {
+        const firstSkuCode = skus[0].code;
+        return stockPrice[firstSkuCode].stock;
     }
     return null;
 }
