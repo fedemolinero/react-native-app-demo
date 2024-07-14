@@ -24,7 +24,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
       headerTitleStyle: {
         fontFamily: 'DMSans-Regular',
         fontSize: 18,
-        fontWeight: '700', 
+        fontWeight: '700',
       },
       title: 'Detail',
     });
@@ -53,11 +53,15 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     }
   };
 
-  const addToCart = () => {
-    console.log('Add to Cart pressed');
+  const handleAddToCart = () => {
+    if (productDetails) {
+      Alert.alert('Add to Cart', `Added ${productDetails.brand} to cart`);
+      // Implement actual add to cart logic here when available
+    } else {
+      Alert.alert('Error', 'Product details not available');
+    }
   };
 
-  // Render loading indicator while fetching data
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -66,7 +70,6 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     );
   }
 
-  // Render error message if there was an error fetching data
   if (error) {
     return (
       <View style={styles.errorContainer}>
@@ -78,7 +81,6 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     );
   }
 
-  // Render product details once data is loaded
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -102,10 +104,10 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
                 <ThemedText type='toptitle'> | Stock: {productDetails.stock}</ThemedText>
               </View>
 
-              <ThemedText style={styles.productDetailsDescription} type='titleAlt'>Description</ThemedText>
-              <ThemedText style={styles.productDetailsDescriptionText} type='toptitle'>{productDetails.information}</ThemedText>
+              <ThemedText style={styles.productDetailsDescription} type='titleAlt'>Description </ThemedText>
+              <ThemedText style={styles.productDetailsDescriptionText} type='toptitle'> {productDetails.information}</ThemedText>
 
-              <ThemedText style={styles.size} type='titleAlt'>Size</ThemedText>
+              <ThemedText style={styles.size} type='titleAlt'>Size </ThemedText>
 
               <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.buttonRounded}>
@@ -123,7 +125,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
 
           </View>
         ) : (
-          <Text>No product details available.</Text>
+          <Text>Loading...</Text>
         )}
       </ScrollView>
 
@@ -133,7 +135,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
           {/* Replace with your cart icon */}
           <ToCartIcon />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonLarge} onPress={addToCart}>
+        <TouchableOpacity style={styles.buttonLarge} onPress={handleAddToCart}>
           <ThemedText type="btn">Add to Cart</ThemedText>
         </TouchableOpacity>
       </View>
@@ -143,8 +145,8 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fafafa',
+    flex: 1,
     paddingBottom: 60, // Ensure space for bottom bar
   },
   loadingContainer: {
