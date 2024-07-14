@@ -13,7 +13,6 @@ import MenuIcon from '@/components/MenuIcon';
 const ProductListingScreen = ({ navigation }: any) => {
 
   // Initialize as empty array of Product type
-  const [count, setCount] = useState(0);
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const ProductListingScreen = ({ navigation }: any) => {
       headerRight: () => <LogoTitle />
     });
     fetchProducts();
-  }, [navigation, setCount]);
+  }, [navigation]);
 
 
   const fetchProducts = async () => {
@@ -41,14 +40,13 @@ const ProductListingScreen = ({ navigation }: any) => {
   };
 
   const renderProductItem = ({ item }: { item: Product }) => (
-
     <TouchableOpacity style={styles.productItem} onPress={() => navigateToProductDetails(item)}>
       <ThemedText style={styles.container}>{item.brand}</ThemedText>
       <Image
         style={styles.image}
         source={{ uri: `./assets${item.image}` }}
       />
-      <ThemedText>{item.abv}</ThemedText>
+      <ThemedText>${item.price/100}</ThemedText>
     </TouchableOpacity >
   );
 
@@ -60,7 +58,6 @@ const ProductListingScreen = ({ navigation }: any) => {
         <ThemedText type="subtitle">Hi Mr. Michael,</ThemedText>
         <ThemedText type="title">Welcome back !</ThemedText>
         <ThemedText type="default">Our Products</ThemedText>
-
         <FlatList
           data={products}
           renderItem={renderProductItem}

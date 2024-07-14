@@ -8,7 +8,7 @@ export interface Product {
   abv: string;
   origin: string;
   information: string;
-  price: string;
+  price: number;
   stock: string;
 }
 
