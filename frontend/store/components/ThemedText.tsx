@@ -22,7 +22,7 @@ const fetchFonts = async () => {
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'titleAlt' | 'itemTitle' | 'subtitle' | 'toptitle';
+  type?: 'default' | 'title' | 'titleAlt' | 'itemTitle' | 'subtitle' | 'toptitle' | 'btn';
 };
 
 export function ThemedText({
@@ -61,6 +61,7 @@ export function ThemedText({
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'toptitle' ? styles.toptitle : undefined,
         type === 'titleAlt' ? styles.titleAlt : undefined,
+        type === 'btn' ? styles.btn : undefined,
         style,
       ]}
       {...rest}
@@ -115,5 +116,10 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontWeight: '500',
     color: '#323232'
+  },
+  btn: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontFamily: 'DMSans-Regular',
   }
 });

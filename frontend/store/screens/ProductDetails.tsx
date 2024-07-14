@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Text, StyleSheet, Alert, ScrollView, View, TouchableOpacity } from 'react-native';
 import { ProductDetails } from '@/types';
 import { ThemedText } from '../components/ThemedText';
-import { ThemedView } from '../components/ThemedView';
 import { Image } from 'react-native';
 import DotsIcon from '@/components/dotsIcon';
 import ToCartIcon from '@/components/toCartIcon';
@@ -16,6 +15,15 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     navigation.setOptions({
       headerRight: () => <DotsIcon />,
       headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: '#fafafa',
+        borderBottomWidth: 0,
+      },
+      headerTitleStyle: {
+        fontFamily: 'DMSans-Regular',
+        fontSize: 18,
+        fontWeight: 700
+      },
       title: 'Detail',
     });
     fetchProductDetails(product.sku[0].code);
@@ -31,7 +39,6 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
   };
 
   const addToCart = () => {
-    // Implement your addToCart logic here
     console.log('Add to Cart pressed');
   };
 
@@ -39,7 +46,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     <View style={styles.container}>
       <ScrollView>
         {productDetails ? (
-          <ThemedView>
+          <View>
             <View style={styles.imageContainer}>
               <Image
                 style={styles.image}
@@ -47,21 +54,37 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
               />
             </View>
 
-            <View style={styles.productDetailsTitle}>
-              <ThemedText style={styles.customColor} type="title">{productDetails.brand}</ThemedText>
-              <ThemedText style={styles.colored} type="title"> ${productDetails.price / 100}</ThemedText>
+            <View style={styles.productsDetailContainer}>
+              <View style={styles.productDetailsTitle}>
+                <ThemedText style={styles.customColor} type="title">{productDetails.brand}</ThemedText>
+                <ThemedText style={styles.colored} type="title"> ${productDetails.price / 100}</ThemedText>
+              </View>
+
+              <View style={styles.productDetailsStock}>
+                <ThemedText type='toptitle'>Origin: {productDetails.origin}</ThemedText>
+                <ThemedText type='toptitle'> | Stock: {productDetails.stock}</ThemedText>
+              </View>
+
+              <ThemedText style={styles.productDetailsDescription} type='titleAlt'>Description </ThemedText>
+              <ThemedText style={styles.productDetailsDescriptionText} type='toptitle'> {productDetails.information}</ThemedText>
+
+              <ThemedText style={styles.size} type='titleAlt'>Size </ThemedText>
+
+              <View style={styles.containerButton}>
+                <TouchableOpacity style={styles.buttonRounded}>
+                  <ThemedText type='toptitle'>12-24oz</ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonRounded}>
+                  <ThemedText type='toptitle'>18-12oz</ThemedText>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonRounded}>
+                  <ThemedText type='toptitle'>Half Barrel</ThemedText>
+                </TouchableOpacity>
+              </View>
+
             </View>
 
-            <View style={styles.productDetailsStock}>
-              <ThemedText type='toptitle'>Origin: {productDetails.origin}</ThemedText>
-              <ThemedText type='toptitle'> | Stock: {productDetails.stock}</ThemedText>
-            </View>
-
-            <ThemedText style={styles.productDetailsDescription} type='titleAlt'>Description </ThemedText>
-            <ThemedText style={styles.productDetailsDescriptionText} type='toptitle'> {productDetails.information}</ThemedText>
-
-            <ThemedText style={styles.size} type='titleAlt'>Size </ThemedText>
-          </ThemedView>
+          </View>
         ) : (
           <Text>Loading...</Text>
         )}
@@ -69,11 +92,12 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
 
       {/* Bottom fixed bar with two buttons */}
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={[styles.button, { flex: 0.3 }]}>
+        <TouchableOpacity style={styles.button}>
+          {/* Replace with your cart icon */}
           <ToCartIcon />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#FF9F24', flex: 0.7 }]} onPress={addToCart}>
-          <Text style={styles.buttonText}>Add to Cart</Text>
+        <TouchableOpacity style={styles.buttonLarge} onPress={addToCart}>
+          <ThemedText type="btn">Add to Cart</ThemedText>
         </TouchableOpacity>
       </View>
     </View>
@@ -82,14 +106,37 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fafafa',
     flex: 1,
-    backgroundColor: '#ffffff',
-    padding: 20,
     paddingBottom: 60, // Ensure space for bottom bar
   },
   imageContainer: {
+    padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  containerButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  buttonRounded: {
+    backgroundColor: 'transparent',
+    borderRadius: 20,
+    margin: 5,
+    borderWidth: 1,
+    borderColor: '#646464',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+  },
+  productsDetailContainer: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#ffffff',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   productDetailsTitle: {
     flexDirection: 'row',
@@ -129,25 +176,28 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    flexDirection: 'row',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#fafafa',
     borderTopWidth: 1,
     borderTopColor: '#ccc',
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 5,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
     borderRadius: 5,
-    paddingVertical: 10,
+    marginHorizontal: 5,
   },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 16,
-  },
+  buttonLarge: {
+    backgroundColor: '#FF9F24',
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    flex: 1,
+    alignItems: 'center',
+    marginRight: 20
+  }
 });
 
 export default ProductDetailsScreen;

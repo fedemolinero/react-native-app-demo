@@ -4,11 +4,9 @@ import { FlatList, TouchableOpacity, Alert, StyleSheet, Image, View } from 'reac
 import axios from 'axios';
 import { Product } from '@/types';
 import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import LogoTitle from '@/components/LogoTitle';
 import MenuIcon from '@/components/MenuIcon';
 import AddToCartIcon from '@/components/addToCartIcon';
-
 
 const ProductListingScreen = ({ navigation }: any) => {
 
@@ -18,6 +16,10 @@ const ProductListingScreen = ({ navigation }: any) => {
   useEffect(() => {
     navigation.setOptions({
       title: 'Wellcome',
+      headerStyle: {
+        backgroundColor: '#fafafa',
+        borderBottomWidth: 0
+      },
       // headerLeft: () => (),
       headerTitle: () => <MenuIcon />,
       headerRight: () => <LogoTitle />
@@ -58,25 +60,22 @@ const ProductListingScreen = ({ navigation }: any) => {
   );
 
   return (
-    <ThemedView>
-      <View style={styles.container}>
-        <ThemedText type="toptitle">Hi Mr. Michael,</ThemedText>
-        <ThemedText type="title">Welcome back !</ThemedText>
-        <ThemedText type="default">Our Products</ThemedText>
-        <FlatList
-          data={products}
-          renderItem={renderProductItem}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
-          contentContainerStyle={styles.flatlistContent}
-        />
-      </View>
-    </ThemedView>
+    <View style={styles.container}>
+      <ThemedText type="toptitle">Hi Mr. Michael,</ThemedText>
+      <ThemedText type="title">Welcome back !</ThemedText>
+      <ThemedText type="default">Our Products</ThemedText>
+      <FlatList
+        data={products}
+        renderItem={renderProductItem}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.flatlistContent}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-
   container: {
     backgroundColor: '#fafafa',
     paddingLeft: 20,
