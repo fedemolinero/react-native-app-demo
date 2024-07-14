@@ -17,10 +17,14 @@ identified by its SKU. For example, for the SKU 10041, the url should be: api/st
 
 # STARTING COMMANDS
 
-## TO RUN BACKEND ON PORT 5000
+## Navigate to BE folder:
+cd store/backend/
 
+## INSTALL BACKEND AND DEPENDENCIES
+RUN THE COMMAND 'npm install' on backend folder
+
+## TO RUN BACKEND
 npm start
 
 ## TO RUN TESTS
-
 npm test
