@@ -4,8 +4,8 @@ import axios from 'axios';
 import { ProductDetails } from '@/types';
 import { ThemedText } from '../components/ThemedText';
 import { Image } from 'react-native';
-import DotsIcon from '@/components/dotsIcon';
-import ToCartIcon from '@/components/toCartIcon';
+import DotsIcon from '@/components/icons/dotsIcon';
+import ToCartIcon from '@/components/icons/toCartIcon';
 
 const ProductDetailsScreen = ({ route, navigation }: any) => {
   const { product } = route.params;

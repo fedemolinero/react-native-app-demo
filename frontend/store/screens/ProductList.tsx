@@ -4,8 +4,8 @@ import axios from 'axios';
 import { Product } from '@/types';
 import { ThemedText } from '@/components/ThemedText';
 import LogoTitle from '@/components/LogoTitle';
-import MenuIcon from '@/components/MenuIcon';
-import AddToCartIcon from '@/components/addToCartIcon';
+import AddToCartIcon from '@/components/icons/addToCartIcon';
+import MenuIcon from '@/components/icons/MenuIcon';
 
 const ProductListingScreen = ({ navigation }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
