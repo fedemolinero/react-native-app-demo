@@ -13,7 +13,7 @@ export default {
     },
     10035: {
         stock: 190,
-        price: 2940,
+        price: 2942,
     },
     10041: {
         stock: 8,

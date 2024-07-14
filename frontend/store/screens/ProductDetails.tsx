@@ -12,6 +12,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
   const [productDetails, setProductDetails] = useState<ProductDetails | null>(null);
 
   useEffect(() => {
+    // Set header options
     navigation.setOptions({
       headerRight: () => <DotsIcon />,
       headerTitleAlign: 'center',
@@ -26,8 +27,18 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
       },
       title: 'Detail',
     });
+
+    // Fetch initial product details
     fetchProductDetails(product.sku[0].code);
-  }, [navigation]);
+
+    // Setup interval to fetch product details every 5 seconds
+    const interval = setInterval(() => {
+      fetchProductDetails(product.sku[0].code);
+    }, 5000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
+  }, [navigation, product]);
 
   const fetchProductDetails = async (sku: string) => {
     try {
