@@ -1,6 +1,11 @@
+
+
 ## Welcome to Beer Ecommerce!
 
+
 Welcome to Beer Ecommerce! Here you'll find an exceptional selection of craft beers from around the world. To get started, follow these steps:
+
+## As a react native challenge basic installation of react-native is required as its dependencies.
 
 ## Backend Setup
 
