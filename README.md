@@ -1,6 +1,5 @@
 
 ## Welcome to Beer Ecommerce!
-![ImageBeerDetails](frontend/store/assets/BeerStoreDetails.jpg)
 
 Welcome to Beer Ecommerce! Here you'll find an exceptional selection of craft beers from around the world. To get started, follow these steps:
 
@@ -37,5 +36,8 @@ Select on the menu the selected environment to run.
     -Android: "npx expo start --android",
     -Ios: "npx expo start --ios",
     -Web: "npx expo start --web"
+
+![ImageBeerStoreList](frontend/store/assets/BeerStore.jpg)
+![ImageBeerDetails](frontend/store/assets/BeerStoreDetails.jpg)
 
 You're all set! Now you're ready to explore our beer catalog and enjoy a unique shopping experience. Cheers! 🍻
