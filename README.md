@@ -25,7 +25,7 @@ npm test
 
 1. **Navigate to the frontend directory:**
 
-cd /frontend/store
+cd frontend/store
 
 2. **Install necessary dependencies:**
 npm install
@@ -33,7 +33,10 @@ npm install
 3. **Start the React Native application:**
 npm start
 
-4. **Run the application on Android (or iOS):**
-Select on the menu the selected So to run.
+4. **Run the application on Web, Android (or iOS):**
+Select on the menu the selected environment to run.
+    -Android: "npx expo start --android",
+    -Ios: "npx expo start --ios",
+    -Web: "npx expo start --web"
 
 You're all set! Now you're ready to explore our beer catalog and enjoy a unique shopping experience. Cheers! 🍻
